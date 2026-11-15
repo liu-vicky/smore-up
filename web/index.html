@@ -1,0 +1,2308 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>S’more Up</title>
+    <style>
+      :root {
+        --ink: #343a32;
+        --paper: #f7f5e9;
+        --green: #6f7c58
+      }
+
+      * {
+        box-sizing: border-box
+      }
+
+      body {
+        margin: 0;
+        background: var(--paper);
+        color: var(--ink);
+        font: 20px 'Gaegu','Comic Sans MS',cursive
+      }
+
+      button,input,select {
+        font: inherit;
+        color: inherit
+      }
+
+      button {
+        cursor: pointer
+      }
+
+      button:focus-visible,input:focus-visible,select:focus-visible {
+        outline: 3px solid #e5a968
+      }
+
+      button {
+        background: var(--paper);
+        border: 1.6px solid var(--ink);
+        border-radius: 10px;
+        padding: 9px 18px
+      }
+
+      button:hover {
+        background: #ecebdc;
+        transform: translateY(-2px)
+      }
+
+      header {
+        position: absolute;
+        left: 45px;
+        top: 27px
+      }
+
+      .brand {
+        font-size: 26px
+      }
+
+      .brand small {
+        display: block;
+        font-size: 15px;
+        color: #828474
+      }
+
+      main {
+        min-height: 100svh;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        overflow: hidden
+      }
+
+      .top {
+        text-align: center;
+        margin-top: 35px;
+        z-index: 1
+      }
+
+      .eyebrow {
+        font-size: 14px;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: #7f8472
+      }
+
+      h1 {
+        font-size: 34px;
+        line-height: 1.1;
+        font-weight: 400;
+        margin: 8px
+      }
+
+      #next {
+        background: #eeeddf;
+        border: 1px dashed #acae99;
+        border-radius: 25px;
+        padding: 8px 22px;
+        margin: 15px auto;
+        width: fit-content;
+        font-size: 18px
+      }
+
+      .cold {
+        width: 260px;
+        margin: auto;
+        font-size: 16px
+      }
+
+      .cold label {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 6px
+      }
+
+      .track {
+        height: 9px;
+        border: 1.5px solid #7e8a77;
+        border-radius: 20px;
+        padding: 1px
+      }
+
+      .fill {
+        height: 100%;
+        border-radius: 20px;
+        background: #9eafb1;
+        transition: width 1s
+      }
+
+      .note {
+        font-size: 14px;
+        color: #858976;
+        margin: 5px
+      }
+
+      .scene {
+        width: min(900px,100vw);
+        height: min(480px,53vh);
+        position: relative;
+        margin-top: 0
+      }
+
+      .scene svg {
+        width: 100%;
+        height: 100%;
+        overflow: visible
+      }
+
+      .scene .bob {
+        animation: bob 4s ease-in-out infinite;
+        transform-box: fill-box;
+        transform-origin: center
+      }
+
+      .fire {
+        animation: flame 1.3s ease-in-out infinite;
+        transform-origin: 450px 275px
+      }
+
+      .speech {
+        position: absolute;
+        left: 68%;
+        top: 24%;
+        font-size: 16px;
+        transform: rotate(6deg)
+      }
+
+      .caption {
+        text-align: center;
+        color: #888b79;
+        font-size: 16px;
+        margin-top: -10px
+      }
+
+      .dock {
+        display: flex;
+        gap: 25px;
+        margin: 22px auto 25px
+      }
+
+      .dock button {
+        border: 0;
+        background: transparent;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+        font-size: 15px;
+        padding: 8px;
+        width: 68px
+      }
+
+      .dock svg {
+        width: 28px;
+        height: 28px;
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 1.5
+      }
+
+      .dock .poke {
+        background: #e5e8d6;
+        border: 1px solid #b3b79f;
+        border-radius: 50%;
+        width: 58px;
+        height: 58px;
+        margin-bottom: 4px;
+        display: grid;
+        place-items: center
+      }
+
+      .bottom {
+        position: fixed;
+        bottom: 12px;
+        right: 22px;
+        font-size: 13px;
+        color: #969a88
+      }
+
+      .overlay {
+        position: fixed;
+        inset: 0;
+        background: #30382c45;
+        backdrop-filter: blur(5px);
+        z-index: 4;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 22px
+      }
+
+      .card {
+        background: var(--paper);
+        border: 2px solid var(--ink);
+        box-shadow: 7px 8px 0 #343a3226;
+        border-radius: 22px 18px 24px 15px;
+        width: min(440px,100%);
+        padding: 30px;
+        position: relative
+      }
+
+      .card h2 {
+        font-size: 30px;
+        font-weight: 400;
+        margin: 0 0 8px
+      }
+
+      .card p {
+        color: #7d826d;
+        font-size: 17px
+      }
+
+      .close {
+        position: absolute;
+        right: 15px;
+        top: 12px;
+        border: 0;
+        padding: 2px 8px
+      }
+
+      .card label {
+        display: block;
+        font-size: 16px;
+        margin-top: 15px
+      }
+
+      .card input,.card select {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #b0b49f;
+        border-radius: 7px;
+        background: #fffef8;
+        margin-top: 5px
+      }
+
+      .primary {
+        background: #697956;
+        color: white;
+        border-color: #697956;
+        width: 100%;
+        margin-top: 20px
+      }
+
+      .row {
+        padding: 12px 0;
+        border-bottom: 1px dashed #c9cbb9;
+        display: flex;
+        align-items: center;
+        gap: 15px
+      }
+
+      .avatar {
+        background: #dde0ce;
+        border: 1.5px solid #78816a;
+        border-radius: 45% 55% 34% 40%;
+        width: 40px;
+        height: 38px;
+        display: grid;
+        place-items: center
+      }
+
+      .muted {
+        font-size: 14px;
+        color: #8d927f
+      }
+
+      .toast {
+        position: fixed;
+        bottom: 130px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: #343e30;
+        color: #fff;
+        padding: 10px 25px;
+        border-radius: 30px;
+        z-index: 6;
+        white-space: nowrap;
+        font-size: 17px
+      }
+
+      #overlay[hidden],.toast[hidden] {
+        display: none
+      }
+
+      @keyframes bob {
+        50% {
+          transform: translateY(-5px)
+        }
+      }
+
+      @keyframes flame {
+        50% {
+          transform: scale(.93,1.06)
+        }
+      }
+
+      @media(max-width:650px) {
+        header {
+          left: 20px;
+          top: 15px
+        }
+        .brand {
+          font-size: 19px
+        }
+        .brand small {
+          display: none
+        }
+        .top {
+          margin-top: 70px
+        }
+        .scene {
+          height: 39vh;
+          margin-top: 25px
+        }
+        .speech {
+          font-size: 12px
+        }
+        .dock {
+          gap: 8px
+        }
+        .bottom {
+          position: static;
+          text-align: center
+        }
+        .caption {
+          margin-top: 10px
+        }
+        h1 {
+          font-size: 30px
+        }
+      }
+
+      @media(prefers-reduced-motion:reduce) {
+        * {
+          animation: none!important
+        }
+      }
+
+      /* A soft, rounded voice across the entire campfire. */
+      body {
+        font-size: 17px
+      }
+
+      svg text {
+        font-family: inherit
+      }
+
+      #next {
+        margin-bottom: 32px
+      }
+
+      .scene {
+        width: min(1120px,100vw);
+        height: min(520px,55vh);
+        margin-top: 0
+      }
+
+      .scene>svg {
+        transform: scale(1.14);
+        transform-origin: 50% 62%
+      }
+
+      .speech {
+        left: 75%;
+        top: 24%
+      }
+
+      .caption {
+        position: relative;
+        margin-top: 0;
+        font-size: 14px
+      }
+
+      .dock {
+        position: relative;
+        margin-top: 18px
+      }
+
+      .card {
+        font-size: 16px
+      }
+
+      .card p {
+        line-height: 1.6
+      }
+
+      @media(max-width:650px) {
+        .scene {
+          height: 40vh;
+          margin-top: 12px;
+          width: 100vw
+        }
+        .scene>svg {
+          transform: scale(1.18)
+        }
+        #next {
+          margin-bottom: 28px
+        }
+        .speech {
+          left: 70%;
+          font-size: 10px
+        }
+        .brand {
+          font-size: 16px
+        }
+        .eyebrow {
+          font-size: 10px;
+          letter-spacing: 2px
+        }
+        .cold {
+          font-size: 14px
+        }
+        .note {
+          font-size: 12px
+        }
+        .dock button {
+          font-size: 12px
+        }
+        .card h2 {
+          font-size: 27px
+        }
+      }
+
+      @font-face {
+        font-family: Gaegu;
+        src: url('gaegu-latin.ttf');
+        font-weight: 400;
+        font-display: swap
+      }
+
+      @font-face {
+        font-family: Gaegu;
+        src: url('gaegu-bold-latin.ttf');
+        font-weight: 700;
+        font-display: swap
+      }
+
+      :root {
+        --ink: #292741;
+        --paper: #fffbea
+      }
+
+      body {
+        font-family: Gaegu,'Comic Sans MS',cursive;
+        font-size: 22px;
+        background-color: var(--paper);
+        background-image: radial-gradient(#c9c0a347 .6px,transparent .6px);
+        background-size: 7px 7px
+      }
+
+      button,input,select,svg text {
+        font-family: inherit;
+        letter-spacing: 1px
+      }
+
+      h1 {
+        font-weight: 700;
+        font-size: 40px
+      }
+
+      .brand {
+        font-size: 28px;
+        font-weight: 700
+      }
+
+      .eyebrow {
+        font-size: 15px;
+        color: #c4816d;
+        font-weight: 700
+      }
+
+      #next {
+        font-size: 21px;
+        background: #fffcf2;
+        border-color: #c7bea2
+      }
+
+      .cold {
+        font-size: 19px
+      }
+
+      .note {
+        font-size: 16px
+      }
+
+      .caption {
+        font-size: 19px
+      }
+
+      .dock button {
+        font-size: 19px
+      }
+
+      .bottom {
+        font-size: 15px
+      }
+
+      .overlay {
+        background: #10162ed9;
+        overflow: auto;
+        align-items: safe center;
+        padding: 20px
+      }
+
+      .card {
+        background-color: var(--paper);
+        background-image: radial-gradient(#c9c0a34d .6px,transparent .6px);
+        background-size: 7px 7px;
+        border: 3px solid #292741;
+        border-radius: 30px;
+        box-shadow: 9px 11px 0 #292741;
+        width: min(510px,100%);
+        padding: 35px 31px 30px;
+        font-size: 21px;
+        max-height: calc(100svh - 45px);
+        overflow: auto
+      }
+
+      .card h2 {
+        font-size: 40px;
+        line-height: 1.05;
+        letter-spacing: 2px;
+        font-weight: 700;
+        max-width: 330px;
+        margin: 10px 0 18px
+      }
+
+      .card p {
+        font-size: 19px;
+        line-height: 1.35;
+        color: #7d7883;
+        letter-spacing: .7px;
+        margin-bottom: 27px
+      }
+
+      .kicker {
+        font-size: 18px;
+        color: #c4816d;
+        font-weight: 700;
+        letter-spacing: 1px
+      }
+
+      .card label {
+        font-size: 19px;
+        letter-spacing: 1px;
+        font-weight: 700;
+        margin-top: 18px
+      }
+
+      .card input,.card select {
+        font-size: 20px;
+        letter-spacing: 1px;
+        font-weight: 700;
+        border: 2px solid #bdb49a;
+        background: #fffdf5;
+        padding: 13px 15px;
+        border-radius: 13px;
+        margin-top: 7px;
+        min-height: 51px
+      }
+
+      .card button {
+        font-size: 21px
+      }
+
+      .card .close {
+        border: 2px solid #292741;
+        border-radius: 50%;
+        width: 35px;
+        height: 35px;
+        padding: 0;
+        right: 20px;
+        top: 20px;
+        font-size: 30px;
+        line-height: 26px
+      }
+
+      .primary {
+        background: #efb09c;
+        color: #292741;
+        border: 2px solid #292741;
+        border-radius: 13px;
+        box-shadow: 3px 4px 0 #292741;
+        padding: 14px;
+        margin-top: 26px;
+        font-weight: 700;
+        letter-spacing: 1px
+      }
+
+      .primary:hover {
+        background: #f4c1af
+      }
+
+      .dock .poke {
+        background: #fbd8ba;
+        border-color: #292741
+      }
+
+      .card .muted {
+        font-size: 17px
+      }
+
+      .row {
+        border-color: #d3c8ab
+      }
+
+      .toast {
+        background: #292741;
+        font-size: 20px
+      }
+
+      @media(max-width:650px) {
+        .brand {
+          font-size: 21px
+        }
+        .eyebrow {
+          font-size: 12px
+        }
+        h1 {
+          font-size: 34px
+        }
+        .dock button {
+          font-size: 16px
+        }
+        .card {
+          padding: 30px 24px
+        }
+        .card h2 {
+          font-size: 38px
+        }
+        .cold {
+          font-size: 18px
+        }
+        .note {
+          font-size: 15px
+        }
+      }
+
+      .hangout-today {
+        display: block;
+        margin: 14px auto 0;
+        background: #efb09c;
+        border: 2px solid #292741;
+        border-radius: 13px;
+        box-shadow: 2px 3px 0 #292741;
+        padding: 8px 17px;
+        font-size: 19px;
+        font-weight: 700;
+        letter-spacing: .5px
+      }
+
+      .hangout-today:hover {
+        background: #f4c1af
+      }
+
+      main {
+        padding-bottom: 25px
+      }
+
+      .dock {
+        margin-top: auto;
+        margin-bottom: 0;
+        padding-top: 24px;
+        flex-shrink: 0
+      }
+
+      .scene {
+        flex-shrink: 0;
+        height: clamp(240px,calc(100svh - 465px),520px)
+      }
+
+      .bottom {
+        position: static;
+        align-self: flex-end;
+        margin: 8px 22px 0;
+        flex-shrink: 0
+      }
+
+      @media(max-width:650px) {
+        main {
+          padding-bottom: calc(12px + env(safe-area-inset-bottom))
+        }
+        .scene {
+          height: clamp(220px,calc(100svh - 460px),410px)
+        }
+        .dock {
+          margin-top: auto;
+          margin-bottom: 0;
+          padding-top: 18px
+        }
+        .bottom {
+          align-self: center;
+          margin: 8px 0 0
+        }
+        .hangout-today {
+          font-size: 18px;
+          margin-top: 12px
+        }
+      }
+
+      body:after {
+        content: "";
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 20;
+        opacity: .13;
+        background-image: url("grain.svg");
+        mix-blend-mode: multiply
+      }
+
+      .scene>svg {
+        filter: url(#pencil)
+      }
+
+      .scene {
+        height: clamp(240px,calc(100svh - 465px),520px)
+      }
+
+      .hangout-today {
+        position: relative;
+        margin: 0 auto 0;
+        z-index: 1
+      }
+
+      .edit-character {
+        border: 0;
+        background: transparent;
+        font-size: 18px;
+        padding: 7px 15px;
+        margin: 6px 0 0;
+        text-decoration: underline;
+        text-decoration-style: dashed;
+        text-underline-offset: 5px
+      }
+
+      .character-desk {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 10px
+      }
+
+      .draw-box {
+        width: 100%;
+        aspect-ratio: 1;
+        background: #fffdf5;
+        border: 2px solid #292741;
+        border-radius: 17px;
+        touch-action: none;
+        cursor: crosshair;
+        display: block
+      }
+
+      .swatches {
+        display: flex;
+        gap: 9px;
+        flex-wrap: wrap;
+        margin: 10px 0
+      }
+
+      .swatch {
+        width: 29px;
+        height: 29px;
+        border-radius: 50%;
+        padding: 0;
+        border: 2px solid #292741
+      }
+
+      .swatch[aria-pressed=true] {
+        outline: 2px solid #c4816d;
+        outline-offset: 3px
+      }
+
+      .draw-tools {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        flex-wrap: wrap
+      }
+
+      .draw-tools button {
+        font-size: 16px;
+        padding: 5px 10px
+      }
+
+      .draw-tools input[type=color] {
+        width: 40px;
+        height: 35px;
+        padding: 1px;
+        margin: 0
+      }
+
+      .draw-tools input[type=range] {
+        width: 95px;
+        min-height: 20px
+      }
+
+      .profile-preview {
+        width: 52px;
+        height: 52px;
+        object-fit: contain
+      }
+
+      .avatar img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain
+      }
+
+      .check-label {
+        display: flex!important;
+        align-items: flex-start;
+        gap: 10px;
+        font-size: 16px!important
+      }
+
+      .check-label input {
+        width: 19px;
+        min-height: 19px;
+        margin: 0
+      }
+
+      .split-fields {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px
+      }
+
+      .spark {
+        position: absolute;
+        left: 50%;
+        top: 60%;
+        width: 7px;
+        height: 12px;
+        background: var(--spark);
+        pointer-events: none;
+        animation: celebrate 1.5s ease-out forwards;
+        border-radius: 2px;
+        z-index: 3
+      }
+
+      @keyframes celebrate {
+        0% {
+          transform: translate(-50%,0) rotate(0);
+          opacity: 1
+        }
+        100% {
+          transform: translate(var(--x),var(--y)) rotate(var(--r));
+          opacity: 0
+        }
+      }
+
+      @media(prefers-reduced-motion:reduce) {
+        .spark {
+          animation: none;
+          display: none
+        }
+      }
+
+      .card .fineprint {
+        font-size: 15px;
+        margin: 10px 0;
+        color: #817b79
+      }
+
+      .character-desk label {
+        margin-top: 6px
+      }
+
+      .lonely-note {
+        position: relative;
+        border: 1px dashed #bcb49b;
+        border-radius: 18px;
+        background: #fffbea;
+        font-size: 18px;
+        padding: 8px 18px;
+        margin: 0 15px 15px;
+        max-width: 440px;
+        color: #7f7683
+      }
+
+      .draw-wrap {
+        position: relative
+      }
+
+      .draw-guide {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        color: #292741;
+        opacity: .2
+      }
+
+      .draw-guide path {
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 2;
+        stroke-dasharray: 3 8;
+        stroke-linecap: round
+      }
+
+      .picker-pop {
+        border: 2px solid #292741;
+        background: #fffbea;
+        border-radius: 17px;
+        padding: 15px;
+        margin-top: 10px;
+        box-shadow: 3px 4px #29274118
+      }
+
+      .picker-pop[hidden] {
+        display: none
+      }
+
+      .color-wheel {
+        display: block;
+        width: 190px;
+        height: 190px;
+        max-width: 100%;
+        margin: 0 auto;
+        touch-action: none;
+        cursor: crosshair;
+        border: 2px solid #292741;
+        border-radius: 50%
+      }
+
+      .picker-pop label {
+        font-size: 17px;
+        margin: 10px 0 0
+      }
+
+      .picker-pop input[type=range] {
+        width: 100%;
+        padding: 0;
+        min-height: 25px
+      }
+
+      .color-preview {
+        display: inline-block;
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        border: 1px solid #292741;
+        vertical-align: middle;
+        background: #292741
+      }
+
+      .calendar-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 5px
+      }
+
+      .calendar-head button {
+        padding: 2px 10px
+      }
+
+      .calendar-grid {
+        display: grid;
+        grid-template-columns: repeat(7,1fr);
+        gap: 4px;
+        margin-top: 10px;
+        text-align: center
+      }
+
+      .calendar-grid button {
+        padding: 6px 0;
+        font-size: 18px;
+        letter-spacing: 0;
+        border: 1px solid transparent;
+        background: transparent
+      }
+
+      .calendar-grid button:hover {
+        background: #f9dbc1
+      }
+
+      .calendar-grid button.selected {
+        background: #efb09c;
+        border-color: #292741
+      }
+
+      .calendar-grid small {
+        font-size: 16px;
+        color: #8b817e
+      }
+
+      .picker-trigger {
+        width: 100%;
+        text-align: left;
+        background: #fffdf5;
+        border: 2px solid #bdb49a;
+        border-radius: 13px;
+        padding: 12px 14px;
+        margin-top: 7px;
+        font-weight: 700
+      }
+
+      .time-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 10px
+      }
+
+      .time-grid select {
+        padding: 9px
+      }
+
+      .split-fields {
+        grid-template-columns: 1fr
+      }
+
+      .character-name {
+        font-family: Gaegu;
+        font-weight: 700
+      }
+
+      /* Shared pen weight and generous paper spacing. */
+      :root {
+        --line: 2px;
+        --accent: #efb09c;
+        --accent-hover: #f4c1af;
+        --soft-line: #bdb49a
+      }
+
+      button {
+        border-width: var(--line);
+        font-weight: 700;
+        box-shadow: none
+      }
+
+      button:hover {
+        transform: none
+      }
+
+      button svg,.dock svg {
+        stroke-width: 2;
+        stroke-linecap: round;
+        stroke-linejoin: round
+      }
+
+      .card,.picker-pop,.card input,.card select,.picker-trigger,.draw-box,.primary,.hangout-today,.swatch {
+        border-width: var(--line)
+      }
+
+      .card {
+        box-shadow: 5px 6px 0 #2927411f;
+        padding: 36px;
+        line-height: 1.5
+      }
+
+      .primary,.hangout-today {
+        background: var(--accent);
+        box-shadow: 2px 2px 0 var(--ink);
+        border: var(--line) solid var(--ink)
+      }
+
+      .primary:hover,.hangout-today:hover {
+        background: var(--accent-hover)
+      }
+
+      .primary {
+        margin-top: 30px
+      }
+
+      .card label {
+        margin-top: 23px
+      }
+
+      .card h2 {
+        margin-bottom: 24px
+      }
+
+      .card p {
+        margin-bottom: 30px
+      }
+
+      header {
+        top: 30px;
+        left: 40px
+      }
+
+      .brand small {
+        font-weight: 400;
+        font-size: 17px;
+        line-height: 1.5;
+        margin-top: 6px;
+        color: #8b8390
+      }
+
+      .top {
+        margin-top: 40px
+      }
+
+      h1 {
+        margin: 12px 8px 0
+      }
+
+      #next {
+        margin-top: 22px;
+        margin-bottom: 34px;
+        padding: 9px 23px;
+        background: #fffdf5;
+        border: var(--line) dashed #c9c1ad
+      }
+
+      .lonely-note {
+        margin: 10px 24px 28px;
+        padding: 12px 22px;
+        line-height: 1.4;
+        border: var(--line) dashed #c9c1ad;
+        color: #827a87;
+        max-width: 460px;
+        font-weight: 400;
+        background: #fffdf5
+      }
+
+      .hangout-today {
+        margin: 0 auto 24px;
+        padding: 11px 24px
+      }
+
+      .edit-character {
+        margin: 0 auto 20px;
+        padding: 9px 17px;
+        border: var(--line) solid #bdb49a;
+        border-radius: 13px;
+        background: transparent;
+        text-decoration: none;
+        font-weight: 400
+      }
+
+      .edit-character:hover {
+        background: #f4eee0
+      }
+
+      .dock {
+        gap: 24px;
+        padding-top: 28px;
+        margin-top: auto;
+        margin-bottom: 0
+      }
+
+      .dock button {
+        border: var(--line) solid transparent;
+        border-radius: 14px;
+        font-weight: 400;
+        padding: 10px 8px;
+        min-height: 77px
+      }
+
+      .dock button:hover {
+        border-color: #c9c1ad;
+        background: #f5efdf
+      }
+
+      .dock .poke {
+        border: var(--line) solid var(--ink);
+        background: #f3d5c4;
+        box-shadow: none
+      }
+
+      .dock svg {
+        width: 28px;
+        height: 28px
+      }
+
+      .card .close {
+        border: var(--line) solid var(--ink);
+        box-shadow: none
+      }
+
+      .draw-tools button {
+        border: var(--line) solid #bdb49a;
+        box-shadow: none
+      }
+
+      .swatch {
+        border: var(--line) solid var(--ink)
+      }
+
+      .calendar-grid button {
+        border: var(--line) solid transparent
+      }
+
+      .calendar-grid button.selected {
+        border-color: var(--ink);
+        background: var(--accent)
+      }
+
+      .calendar-head button {
+        border: var(--line) solid #bdb49a;
+        box-shadow: none
+      }
+
+      .scene {
+        height: clamp(260px,calc(100svh - 580px),520px)
+      }
+
+      .bottom {
+        margin-top: 16px
+      }
+
+      @media(max-width:650px) {
+        header {
+          top: 18px;
+          left: 22px
+        }
+        .brand small {
+          display: block;
+          font-size: 13px;
+          margin-top: 2px
+        }
+        .top {
+          margin-top: 95px
+        }
+        .card {
+          padding: 30px 24px
+        }
+        .lonely-note {
+          margin: 10px 25px 24px;
+          font-size: 17px
+        }
+        .hangout-today {
+          margin-bottom: 22px
+        }
+        .edit-character {
+          margin-bottom: 20px
+        }
+        .dock {
+          gap: 5px;
+          padding-top: 20px
+        }
+        .dock button {
+          width: 62px;
+          padding: 8px 3px
+        }
+        .scene {
+          height: clamp(235px,calc(100svh - 550px),410px)
+        }
+      }
+
+      .card.character-card {
+        width: min(850px,100%);
+        padding: 32px 36px
+      }
+
+      .character-card h2 {
+        max-width: none;
+        margin-bottom: 10px
+      }
+
+      .character-card>p {
+        margin: 0 0 24px
+      }
+
+      .character-card .character-desk {
+        display: grid;
+        grid-template-columns: minmax(0,1.5fr) minmax(210px,1fr);
+        gap: 32px;
+        align-items: start
+      }
+
+      .character-card .drawing-column,.character-card .color-column {
+        min-width: 0
+      }
+
+      .character-card .draw-box {
+        width: 100%;
+        aspect-ratio: 1
+      }
+
+      .character-card .color-column>label:first-child {
+        margin-top: 0
+      }
+
+      .character-card .draw-tools {
+        margin-top: 16px;
+        gap: 10px
+      }
+
+      .character-card .draw-tools label {
+        margin: 0;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 17px
+      }
+
+      .character-card .draw-tools input[type=range] {
+        width: 100px;
+        padding: 0;
+        margin: 0;
+        min-height: 24px
+      }
+
+      .character-card .swatches {
+        gap: 9px;
+        margin: 12px 0 18px
+      }
+
+      .character-card .swatch {
+        width: 25px;
+        height: 25px
+      }
+
+      .character-card .inline-colors {
+        border: 0;
+        padding: 0;
+        box-shadow: none;
+        background: transparent
+      }
+
+      .character-card .custom-color-label {
+        font-size: 17px;
+        margin: 0 0 12px
+      }
+
+      .character-card .color-wheel {
+        width: 125px;
+        height: 125px;
+        margin: 0 auto 12px
+      }
+
+      .character-card .inline-colors label {
+        font-size: 16px;
+        margin-top: 9px
+      }
+
+      .character-card #lightness {
+        display: block;
+        width: 100%;
+        min-height: 20px;
+        padding: 0;
+        margin: 4px 0
+      }
+
+      .character-card #ink {
+        min-height: 36px;
+        font-size: 17px;
+        padding: 5px 10px
+      }
+
+      .character-card .primary {
+        font-size: 20px;
+        padding: 10px;
+        margin-top: 22px
+      }
+
+      .character-card .fineprint {
+        margin: 19px 0 0;
+        font-size: 15px
+      }
+
+      @media(max-width:600px) {
+        .card.character-card {
+          padding: 28px 20px
+        }
+        .character-card .character-desk {
+          grid-template-columns: minmax(0,1.2fr) minmax(125px,1fr);
+          gap: 16px
+        }
+        .character-card .color-wheel {
+          width: 104px;
+          height: 104px
+        }
+        .character-card .swatches {
+          gap: 8px
+        }
+        .character-card .swatch {
+          width: 23px;
+          height: 23px
+        }
+        .character-card .color-column input {
+          font-size: 16px;
+          padding: 6px 8px;
+          min-height: 36px
+        }
+        .character-card .draw-tools {
+          gap: 7px
+        }
+        .character-card .draw-tools button {
+          font-size: 15px;
+          padding: 4px 7px
+        }
+        .character-card .primary {
+          font-size: 17px
+        }
+        .character-card>p {
+          font-size: 17px
+        }
+      }
+
+      .character-card .brush-sizes {
+        display: flex;
+        gap: 7px;
+        align-items: center
+      }
+
+      .character-card .draw-tools .brush-size,.character-card .draw-tools .eraser-icon {
+        width: 40px;
+        height: 40px;
+        display: grid;
+        place-items: center;
+        padding: 0;
+        border: 2px solid #bdb49a;
+        border-radius: 11px;
+        background: #fffdf5
+      }
+
+      .brush-size span {
+        display: block;
+        width: var(--dot);
+        height: var(--dot);
+        background: #292741;
+        border-radius: 50%;
+        pointer-events: none
+      }
+
+      .character-card .draw-tools button[aria-pressed=true] {
+        border-color: #292741;
+        background: #f3d5c4;
+        box-shadow: 1px 1px 0 #292741
+      }
+
+      .eraser-icon svg {
+        width: 23px;
+        height: 23px;
+        fill: none;
+        stroke: #292741;
+        stroke-width: 2;
+        stroke-linecap: round;
+        stroke-linejoin: round
+      }
+
+      @media(max-width:600px) {
+        .character-card .draw-tools .brush-size,.character-card .draw-tools .eraser-icon {
+          width: 35px;
+          height: 35px
+        }
+        .character-card .brush-sizes {
+          gap: 5px
+        }
+      }
+
+      .card textarea {
+        display: block;
+        width: 100%;
+        resize: vertical;
+        min-height: 94px;
+        margin-top: 7px;
+        padding: 12px 15px;
+        border: 2px solid #bdb49a;
+        border-radius: 13px;
+        background: #fffdf5;
+        color: var(--ink);
+        font: 700 20px Gaegu,'Comic Sans MS',cursive;
+        letter-spacing: 1px;
+        line-height: 1.4
+      }
+
+      .card textarea:focus-visible {
+        outline: 3px solid #efb09c;
+        outline-offset: 2px
+      }
+
+      .dock {
+        gap: 34px;
+        align-items: stretch
+      }
+
+      .dock button {
+        box-sizing: border-box;
+        width: 82px;
+        min-height: 106px;
+        padding: 12px 8px 10px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 9px;
+        border: 2px solid transparent;
+        border-radius: 17px;
+        line-height: 1.2;
+        position: relative
+      }
+
+      .dock button>svg {
+        flex: 0 0 32px;
+        width: 32px;
+        height: 32px;
+        margin-bottom: 11px
+      }
+
+      .dock .poke {
+        flex: 0 0 54px;
+        width: 54px;
+        height: 54px;
+        margin: 0;
+        display: grid;
+        place-items: center
+      }
+
+      .dock button:hover,.dock button:focus-visible {
+        background: #f5efdf;
+        border-color: #c9c1ad
+      }
+
+      .dock button svg,.dock button span {
+        pointer-events: none
+      }
+
+      @media(max-width:650px) {
+        .dock {
+          gap: clamp(8px,3vw,18px);
+          max-width: 100%;
+          padding-left: 12px;
+          padding-right: 12px
+        }
+        .dock button {
+          width: clamp(52px,13vw,72px);
+          min-height: 100px;
+          padding: 10px 3px;
+          gap: 9px
+        }
+        .dock .poke {
+          width: 46px;
+          height: 46px;
+          flex-basis: 46px
+        }
+        .dock button>svg {
+          width: 28px;
+          height: 28px;
+          flex-basis: 28px;
+          margin-bottom: 9px
+        }
+      }
+
+      .scene.decoration-scene {
+        width: calc(100% - 96px);
+        max-width: 1200px;
+        height: auto;
+        min-height: 0;
+        margin: 36px auto 0;
+        flex-shrink: 0;
+        position: relative
+      }
+
+      .island-board {
+        position: relative;
+        width: 100%;
+        height: clamp(350px,43vh,520px);
+        border: 2px dotted #b9af97;
+        border-radius: 18px;
+        background: #fffdf529;
+        isolation: isolate;
+        overflow: hidden;
+        touch-action: pan-y
+      }
+
+      .island-label {
+        position: absolute;
+        left: 22px;
+        top: 14px;
+        font-size: 16px;
+        color: #a59a88;
+        pointer-events: none;
+        letter-spacing: 1px
+      }
+
+      #stamp-layer {
+        position: absolute;
+        inset: 0;
+        pointer-events: none
+      }
+
+      .placed-stamp {
+        position: absolute;
+        transform: translate(-50%,-50%);
+        padding: 0;
+        margin: 0;
+        border: 0;
+        border-radius: 0;
+        background: none;
+        box-shadow: none;
+        pointer-events: auto;
+        touch-action: none;
+        line-height: 0;
+        min-width: 0;
+        opacity: 1;
+        cursor: grab
+      }
+
+      .placed-stamp img {
+        width: 100%;
+        height: 100%;
+        display: block;
+        pointer-events: none;
+        object-fit: contain
+      }
+
+      .placed-stamp:disabled {
+        pointer-events: none;
+        opacity: 1
+      }
+
+      .placed-stamp:hover {
+        background: none;
+        transform: translate(-50%,-50%);
+        box-shadow: none
+      }
+
+      .placed-stamp.selected {
+        outline: 2px dashed #c7aa8c;
+        outline-offset: 7px;
+        border-radius: 8px
+      }
+
+      .placed-stamp:active {
+        cursor: grabbing
+      }
+
+      .fixed-fire {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%,-50%);
+        height: auto;
+        pointer-events: none;
+        z-index: 2
+      }
+
+      .island-person {
+        position: absolute;
+        left: 39%;
+        top: 57%;
+        width: 8%;
+        min-width: 35px;
+        transform: translate(-50%,-50%);
+        z-index: 3;
+        text-align: center;
+        pointer-events: none
+      }
+
+      .island-person img {
+        display: block;
+        width: 100%;
+        aspect-ratio: 1;
+        object-fit: contain
+      }
+
+      .island-person span {
+        display: block;
+        font-size: 18px;
+        font-weight: 700;
+        line-height: 1.2;
+        white-space: nowrap;
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
+        width: max-content;
+        max-width: 170px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        background: #fffbea99;
+        padding: 1px 7px;
+        border-radius: 12px
+      }
+
+      .decoration-controls {
+        width: calc(100% - 96px);
+        max-width: 1200px;
+        margin: 18px auto 26px;
+        text-align: center
+      }
+
+      #decorate-island {
+        border: 2px solid #bdb49a;
+        background: #fffdf5;
+        font-size: 18px;
+        padding: 8px 20px;
+        font-weight: 400
+      }
+
+      #decoration-tools {
+        margin-top: 20px;
+        border: 2px solid #d6cbb4;
+        border-radius: 18px;
+        background: #fffdf5;
+        padding: 20px;
+        text-align: left
+      }
+
+      #decoration-tools[hidden] {
+        display: none
+      }
+
+      .stamp-toolbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 15px
+      }
+
+      .stamp-toolbar p {
+        font-size: 18px;
+        margin: 0;
+        color: #807889
+      }
+
+      .stamp-toolbar button {
+        font-size: 16px;
+        padding: 7px 12px;
+        white-space: nowrap
+      }
+
+      .stamp-toolbar button:disabled {
+        opacity: .4;
+        cursor: default
+      }
+
+      .stamp-options {
+        display: grid;
+        grid-template-columns: repeat(auto-fill,minmax(115px,1fr));
+        gap: 12px;
+        max-height: 285px;
+        overflow: auto;
+        margin-top: 18px;
+        padding: 4px
+      }
+
+      .stamp-choice {
+        min-height: 110px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        flex-direction: column;
+        gap: 10px;
+        padding: 10px 5px;
+        border: 2px solid #e5dcc9;
+        background: #fffbea;
+        border-radius: 12px;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 1.2
+      }
+
+      .stamp-choice img {
+        display: block;
+        object-fit: contain;
+        pointer-events: none
+      }
+
+      .stamp-choice span {
+        pointer-events: none
+      }
+
+      .stamp-choice[aria-pressed=true] {
+        border-color: #292741;
+        background: #f5e0cf
+      }
+
+      .stamp-choice:hover {
+        background: #f5ecdc
+      }
+
+      .stamp-footnote {
+        font-size: 15px;
+        color: #a09687;
+        margin: 15px 0 0
+      }
+
+      .decorating {
+        cursor: crosshair
+      }
+
+      .decoration-scene .spark {
+        top: 50%
+      }
+
+      @media(max-width:650px) {
+        .scene.decoration-scene {
+          width: calc(100% - 36px);
+          margin-top: 28px
+        }
+        .island-board {
+          height: 300px;
+          border-radius: 14px
+        }
+        .decoration-controls {
+          width: calc(100% - 36px);
+          margin-bottom: 24px
+        }
+        .island-label {
+          font-size: 13px;
+          left: 14px;
+          top: 12px
+        }
+        .island-person span {
+          font-size: 14px
+        }
+        #decoration-tools {
+          padding: 14px
+        }
+        .stamp-toolbar {
+          align-items: flex-start;
+          flex-direction: column
+        }
+        .stamp-options {
+          grid-template-columns: repeat(3,minmax(0,1fr));
+          gap: 8px
+        }
+        .stamp-choice {
+          font-size: 12px;
+          min-height: 108px
+        }
+        .stamp-footnote {
+          font-size: 13px
+        }
+      }
+
+      @media(prefers-reduced-motion:reduce) {
+        .fixed-fire {
+          content: url('assets/fireplace-still.png')
+        }
+      }
+
+      .scene.decoration-scene {
+        width: calc(100% - 56px);
+        max-width: 1380px;
+        margin-top: 28px
+      }
+
+      .island-board {
+        height: clamp(410px,51vh,600px)
+      }
+
+      .decoration-controls {
+        width: calc(100% - 56px);
+        max-width: 1380px
+      }
+
+      .friend-zone {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: calc(var(--friend-radius,160px)*2);
+        height: calc(var(--friend-radius,160px)*2);
+        transform: translate(-50%,-50%);
+        border: 1px dashed transparent;
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 1;
+        transition: border-color .2s,background .2s
+      }
+
+      .friend-zone span {
+        position: absolute;
+        bottom: 12px;
+        left: 50%;
+        transform: translateX(-50%);
+        white-space: nowrap;
+        color: #a39583;
+        font-size: 14px;
+        opacity: 0
+      }
+
+      .decorating .friend-zone {
+        border-color: #ccbda5;
+        background: #fffbea33
+      }
+
+      .decorating .friend-zone span {
+        opacity: 1
+      }
+
+      @media(max-width:650px) {
+        .scene.decoration-scene {
+          width: calc(100% - 24px);
+          margin-top: 24px
+        }
+        .island-board {
+          height: 350px
+        }
+        .decoration-controls {
+          width: calc(100% - 24px)
+        }
+        .friend-zone span {
+          font-size: 11px;
+          bottom: 8px
+        }
+      }
+
+      #next {
+        max-width: 520px;
+        line-height: 1.3
+      }
+
+      #decorate-island {
+        position: absolute;
+        right: 16px;
+        top: 14px;
+        z-index: 5;
+        font-size: 16px;
+        padding: 6px 13px;
+        background: #fffdf5ed
+      }
+
+      .decoration-controls {
+        margin: 0 auto 24px
+      }
+
+      .decoration-controls:has(#decoration-tools[hidden]) {
+        margin-bottom: 16px
+      }
+
+      .island-person {
+        pointer-events: none
+      }
+
+      .blob-speech {
+        position: absolute;
+        bottom: calc(100% + 17px);
+        left: 50%;
+        transform: translateX(-50%);
+        width: 205px;
+        background: #fffdf5;
+        border: 2px solid #bdb49a;
+        border-radius: 18px;
+        padding: 10px 13px;
+        box-shadow: 2px 3px 0 #29274112;
+        font-size: 16px;
+        line-height: 1.2;
+        font-weight: 400;
+        letter-spacing: 0;
+        pointer-events: auto
+      }
+
+      .blob-speech:after {
+        content: "";
+        position: absolute;
+        bottom: -8px;
+        left: calc(50% - 7px);
+        width: 12px;
+        height: 12px;
+        background: #fffdf5;
+        border-right: 2px solid #bdb49a;
+        border-bottom: 2px solid #bdb49a;
+        transform: rotate(45deg)
+      }
+
+      .blob-speech:hover {
+        transform: translateX(-50%);
+        background: #fffdf5
+      }
+
+      .dock button {
+        min-height: 88px;
+        justify-content: flex-start;
+        gap: 10px;
+        white-space: nowrap
+      }
+
+      .dock button>svg {
+        width: 32px;
+        height: 32px;
+        flex: 0 0 32px;
+        margin: 0;
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 2
+      }
+
+      .dock .poke-finger {
+        background: none;
+        border: 0;
+        border-radius: 0;
+        padding: 0
+      }
+
+      .custom-goal {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px
+      }
+
+      .custom-goal[hidden] {
+        display: none
+      }
+
+      .card #custom-goal label {
+        font-size: 17px;
+        margin-top: 15px
+      }
+
+      @media(max-width:650px) {
+        #next {
+          max-width: calc(100vw - 44px);
+          font-size: 19px
+        }
+        #decorate-island {
+          right: 10px;
+          top: 10px;
+          font-size: 13px;
+          padding: 5px 9px
+        }
+        .island-label {
+          top: 17px;
+          font-size: 11px
+        }
+        .blob-speech {
+          width: 156px;
+          font-size: 13px;
+          padding: 8px 10px;
+          left: 85%
+        }
+        .blob-speech:after {
+          left: 32%
+        }
+        .dock button {
+          min-height: 82px
+        }
+        .dock button>svg {
+          width: 28px;
+          height: 28px;
+          flex-basis: 28px;
+          margin: 0
+        }
+      }
+
+      #island-lonely-note {
+        position: absolute;
+        top: 16px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 4;
+        max-width: 390px;
+        width: max-content;
+        padding: 7px 15px;
+        border: 1.5px dashed #c9bea7;
+        border-radius: 16px;
+        background: #fffdf5e8;
+        color: #918576;
+        font-size: 16px;
+        font-weight: 400;
+        letter-spacing: 0;
+        line-height: 1.3
+      }
+
+      #island-lonely-note:hover {
+        transform: translateX(-50%);
+        background: #fffdf5
+      }
+
+      #island-lonely-note[hidden] {
+        display: none
+      }
+
+      @media(max-width:850px) {
+        #island-lonely-note {
+          top: 58px;
+          max-width: calc(100% - 38px);
+          width: 330px;
+          font-size: 14px
+        }
+      }
+
+      .island-person {
+        width: 6.8%;
+        min-width: 30px
+      }
+
+      /* Default UI voice: lowercase. Preserve personal names and entered content. */
+      body,button,.card h2,.eyebrow,.kicker,.island-label,.stamp-choice,.picker-trigger,.calendar-head,.calendar-grid,.toast {
+        text-transform: lowercase
+      }
+
+      #group,#dialogtitle.user-content,.brand,.brand small,.bottom,.user-content,.invite-code,input,textarea {
+        text-transform: none
+      }
+
+      input::placeholder,textarea::placeholder {
+        text-transform: lowercase
+      }
+
+      #poke-form textarea::placeholder {
+        text-transform: none
+      }
+
+      .friend-zone span {
+        bottom: 32px;
+        max-width: 78%;
+        white-space: normal;
+        text-align: center;
+        line-height: 1.25
+      }
+
+      @media(max-width:650px) {
+        .friend-zone span {
+          bottom: 22px;
+          max-width: 76%
+        }
+      }
+
+      .brand-heading {
+        display: flex;
+        align-items: center;
+        gap: 11px;
+        line-height: 1.15
+      }
+
+      .brand-logo {
+        display: block;
+        width: 48px;
+        height: auto;
+        object-fit: contain;
+        flex-shrink: 0
+      }
+
+      .brand small {
+        margin-top: 9px
+      }
+
+      @media(max-width:650px) {
+        .brand-heading {
+          gap: 8px
+        }
+        .brand-logo {
+          width: 36px
+        }
+        .brand small {
+          margin-top: 7px
+        }
+        .top {
+          margin-top: 115px
+        }
+      }
+
+      button:disabled {
+        opacity: 1;
+        cursor: default
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="brand">
+        <span class="brand-heading"><img class="brand-logo" src="assets/smore-logo.png" alt="" width="186" height="158"><span>S’more Up</span></span><small>time to huddle up and hang! &gt;:D</small>
+      </div>
+    </header>
+    <main>
+      <section class="top">
+        <div class="eyebrow">
+          your little corner of the world
+        </div>
+        <h1 id="group">
+          The marshmallow club
+        </h1>
+        <div id="next">
+          you have no plans set so it's time to make one!
+        </div>
+        <div class="cold">
+          <label>
+            <span>❄ campfire coldness</span><span id="percent">0%</span>
+          </label>
+          <div class="track">
+            <div class="fill" id="fill">
+            </div>
+          </div>
+          <p class="note" id="goalnote">
+            goal: a lil hanghout every 2 weeks
+          </p>
+        </div>
+      </section>
+      <section class="scene decoration-scene" aria-label="Your campfire island">
+        <div id="island-board" class="island-board">
+          <button disabled id="decorate-island" aria-expanded="false" aria-controls="decoration-tools">
+            ✎ Decorate your island
+          </button>
+          <span class="island-label">your little island</span>
+          <button disabled id="island-lonely-note" data-panel="invite">
+            you seem lonely, invite a friend to join your fire?
+          </button>
+          <div class="friend-zone" aria-hidden="true">
+            <span>some space for your friends!</span>
+          </div>
+          <div id="stamp-layer">
+          </div>
+          <img class="fixed-fire" src="assets/fireplace.gif" alt="Your hand-drawn animated campfire" style="width:9.388958333333333%;aspect-ratio:241/299" draggable="false">
+          <div id="my-blob" class="island-person">
+          </div>
+        </div>
+      </section>
+      <div class="decoration-controls">
+        <section id="decoration-tools" hidden aria-label="Island stamp collection">
+          <div class="stamp-toolbar">
+            <p id="decoration-hint">
+              Choose a stamp, then click your island. Drag placed stamps to move them.
+            </p>
+            <button id="remove-stamp" disabled>
+              Remove selected
+            </button>
+          </div>
+          <div id="stamp-options" class="stamp-options">
+          </div>
+          <p class="stamp-footnote">
+            Trees, stones, and grass stay in their original proportions. The circle around the fire is reserved for your friends.
+          </p>
+        </section>
+      </div>
+      <button disabled id="met" class="hangout-today">
+        We hung out today
+      </button>
+      <button disabled class="edit-character" data-panel="character">
+        ✎ customize your blob
+      </button>
+      <nav class="dock" aria-label="Campfire menus">
+        <button disabled data-panel="friends">
+          <svg viewBox="0 0 32 32" aria-hidden="true">
+            <path d="M4 28v-6c0-4 3-6 6-7a6 6 0 1 1 6 0c3 1 6 3 6 7v6ZM21 5a5 5 0 0 1 1 10c4 0 7 3 7 7v6h-3"/>
+          </svg>
+          friends
+        </button>
+        <button disabled data-panel="invite">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="m10 13 4-4M8 16l-1 1a4 4 0 0 1-6-6l5-5a4 4 0 0 1 6 0m0 12a4 4 0 0 0 6 0l5-5a4 4 0 0 0-6-6l-1 1" transform="translate(1 0) scale(.92)"/>
+            <path d="m8.5 14.5 7-7"/>
+          </svg>
+          invite
+        </button>
+        <button disabled data-panel="poke" aria-label="poke all">
+          <svg class="poke-finger" viewBox="0 0 32 32" aria-hidden="true">
+            <path d="M13 28c-3-2-5-5-6-8l-2-4c-1-2 1-4 3-2l4 4V6c0-4 5-4 5 0v9-3c0-3 4-3 4 0v3-1c0-3 4-3 4 0v3c0-2 4-2 4 1v5c0 3-2 5-4 7Z"/>
+          </svg>
+          poke all
+        </button>
+        <button disabled data-panel="plans">
+          <svg viewBox="0 0 32 32">
+            <rect x="4" y="6" width="24" height="23" rx="3"/>
+            <path d="M4 13h24M10 2v8M22 2v8m-12 9 4 4 8-7"/>
+          </svg>
+          plans
+        </button>
+        <button disabled data-panel="settings">
+          <svg viewBox="0 0 32 32">
+            <path d="M5 8h22M5 16h22M5 24h22"/>
+            <circle cx="11" cy="8" r="3" fill="#f7f5e9"/>
+            <circle cx="22" cy="16" r="3" fill="#f7f5e9"/>
+            <circle cx="13" cy="24" r="3" fill="#f7f5e9"/>
+          </svg>
+          settings
+        </button>
+      </nav>
+      <div class="bottom">
+        created by Vicky Liu :P
+      </div>
+    </main>
+    <div id="overlay" class="overlay" hidden>
+      <section class="card" id="card" role="dialog" aria-modal="true" aria-labelledby="dialogtitle">
+      </section>
+    </div>
+    <div id="toast" class="toast" role="status" hidden>
+    </div>
+    <script src="app.js"></script>
+  </body>
+</html>

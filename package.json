@@ -1,0 +1,17 @@
+{
+  "name": "smore-up",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A cozy campfire app for planning real-life hangouts.",
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "prestart": "npm run build",
+    "start": "node scripts/dev-server.mjs",
+    "pretest": "npm run build",
+    "test": "node scripts/check.mjs"
+  }
+}
