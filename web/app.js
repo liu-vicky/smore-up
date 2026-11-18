@@ -1198,9 +1198,15 @@
 
         const raw = boardPoint(e);
         const p = clampStamp(raw.x, raw.y, asset);
-        if (nearFire(p.x, p.y, asset)) {
-          return;
+        const reserved = nearFire(p.x, p.y, asset);
+
+        if (!reserved) {
+          lastValid = { ...p };
         }
+        
+        el.style.left = p.x + '%';
+        el.style.top = p.y + '%';
+        el.classList.toggle('over-friend-zone', reserved);
 
         item.x = p.x;
         item.y = p.y;
